@@ -110,94 +110,114 @@
                                     <div class="col-lg-6 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;">
                                         <div class="bg-secondary rounded p-5">
                                             <h4 class="text-white mb-4">City To City Cab Services</h4>
-                                            <form id="bookingForm">
+                                            <form>
                                                 <div class="row g-3">
-                                                    <h4 class="text-white mb-4">City To City Cab Services</h4>
-                                                    <form id="bookingForm">
-                                                        <div class="row g-3">
-                                                    
-                                                            <!-- Car Type -->
-                                                            <div class="col-12">
-                                                                <select class="form-select" id="carType" aria-label="Default select example" required>
-                                                                    <option selected disabled>Select Your Car type</option>
-                                                                    <option value="ERITGA">ERITGA</option>
-                                                                    <option value="INNOVA">INNOVA</option>
-                                                                    <option value="TAVERA">TAVERA</option>
-                                                                    <option value="SWIFT">SWIFT</option>
-                                                                    <option value="AURA">AURA</option>
-                                                                </select>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Select Your Car type</option>
+                                                            <option value="1">ERITGA </option>
+                                                            <option value="2">INNOVA </option>
+                                                            <option value="3">TAVERA </option>
+                                                            <option value="4">SWIFT</option>
+                                                            <option value="5">AURA</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Select Pick-Up city </option>
+                                                            <option value="1">Pune </option>
+                                                            <option value="2">Kolhapur </option>
+                                                            <option value="3">Mumbai</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option selected>Select Drop-Off City </option>
+                                                            <option value="1">Pune </option>
+                                                            <option value="2">Kolhapur </option>
+                                                            <option value="3">Mumbai </option>                                                       
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="input-group">
+                                                            <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
+                                                                <span class="fas fa-calendar-alt"></span><span class="ms-1">Pick Up</span>
                                                             </div>
-                                                    
-                                                            <!-- Pickup City -->
-                                                            <div class="col-12">
-                                                                <select class="form-select" id="pickupCity" aria-label="Default select example" required>
-                                                                    <option selected disabled>Select Pick-Up city</option>
-                                                                    <option value="Pune">Pune</option>
-                                                                    <option value="Kolhapur">Kolhapur</option>
-                                                                    <option value="Mumbai">Mumbai</option>
-                                                                </select>
-                                                            </div>
-                                                    
-                                                            <!-- Drop-Off City -->
-                                                            <div class="col-12">
-                                                                <select class="form-select" id="dropCity" aria-label="Default select example" required>
-                                                                    <option selected disabled>Select Drop-Off City</option>
-                                                                    <option value="Pune">Pune</option>
-                                                                    <option value="Kolhapur">Kolhapur</option>
-                                                                    <option value="Mumbai">Mumbai</option>
-                                                                </select>
-                                                            </div>
-                                                    
-                                                            <!-- Date and Time -->
-                                                            <div class="col-12">
-                                                                <div class="input-group">
-                                                                    <div class="d-flex align-items-center bg-light text-body rounded-start p-2">
-                                                                        <span class="fas fa-calendar-alt"></span><span class="ms-1">Pick Up</span>
-                                                                    </div>
-                                                                    <input class="form-control" type="date" id="pickupDate" required>
-                                                                    <select class="form-select ms-3" id="pickupTime" aria-label="Default select example" required>
-                                                                        <option selected disabled>Select Time</option>
-                                                                        <option value="6:00AM">6:00AM</option>
-                                                                        <option value="7:00AM">7:00AM</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                    
-                                                            <!-- Book Button -->
-                                                            <div class="col-12">
-                                                                <button type="submit" class="btn btn-light w-100 py-2">Book Now</button>
-                                                            </div>
+                                                            <input class="form-control" type="date">
+                                                            <select class="form-select ms-3" aria-label="Default select example">
+                                                                <option value="6">6:00AM</option>
+                                                                <option value="7">7:00AM</option>
+                                                            </select>
                                                         </div>
-                                                    </form>
-                                                    
-                                                    <!-- WhatsApp Redirect Script -->
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <a href="#" class="btn btn-primary rounded-pill d-flex justify-content-center py-3">Book Now</a>                                                        </button>
+                                                                                                                
+                                                    </div>
                                                     <script>
-                                                        document.getElementById("bookingForm").addEventListener("submit", function (e) {
-                                                            e.preventDefault();
-                                                    
-                                                            const carType = document.getElementById("carType").value;
-                                                            const pickupCity = document.getElementById("pickupCity").value;
-                                                            const dropCity = document.getElementById("dropCity").value;
-                                                            const pickupDate = document.getElementById("pickupDate").value;
-                                                            const pickupTime = document.getElementById("pickupTime").value;
-                                                    
-                                                            const message = `Hello, I want to book a cab:\n\nCar Type: ${carType}\nPickup City: ${pickupCity}\nDrop-Off City: ${dropCity}\nPickup Date: ${pickupDate}\nPickup Time: ${pickupTime}`;
-                                                    
-                                                            const phoneNumber = "918793115570"; // Include country code without + sign
-                                                            const encodedMessage = encodeURIComponent(message);
-                                                            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
-                                                        });
-                                                    </script>
+                                                       
+                                                      </script>
+                                                
                                                 </div>
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
-                                </div>
 
+                                 
+<!-- Booking Modal End -->
+
+                                    <!-- Modal 
+                            <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="bookingModalLabel">Enter Booking Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <form id="popupBookingForm">
+                                        <div class="mb-3">
+                                        <label for="userName" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="userName" required>
+                                        </div>
+                                        <div class="mb-3">
+                                        <label for="userMobile" class="form-label">Mobile Number</label>
+                                        <input type="tel" class="form-control" id="userMobile" required pattern="[0-9]{10}">
+                                        </div>
+                                        <div class="mb-3">
+                                        <label for="seats" class="form-label">Number of Seats</label>
+                                        <select class="form-select" id="seats" required>
+                                            <option value="" selected disabled>Select seats</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit Booking</button>
+                                    </form>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>       <!--   
+                            <script>
+                                document.getElementById("popupBookingForm").addEventListener("submit", function(e) {
+                                  e.preventDefault();
+                              
+                                  const name = document.getElementById("userName").value;
+                                  const mobile = document.getElementById("userMobile").value;
+                                  const seats = document.getElementById("seats").value;
+                              
+                                  const message = `Booking Request:\nName: ${name}\nMobile: ${mobile}\nSeats: ${seats}`;
+                              
+                                 
+                                });
+                              </script>
+                              -->
+                                            
+                                            <!--   
                                          <div class="col-lg-6 d-none d-lg-flex fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;">
                                                        <div class="container py-4">
                                                           <div class="row g-3">
@@ -221,7 +241,7 @@
                         </div>
                     </div>
 
-                   --> 
+                   
                                     <script>
                                         window.onload = function() {
                                             const place = localStorage.getItem('place') || 'No Place Set';
@@ -244,6 +264,7 @@
                             </div>
                         </div>
                     </div>
+                    --> 
             <!--Carousel End -->
 
         <!-- Features Start -->
@@ -818,6 +839,8 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    
     </body>
 
 </html>
