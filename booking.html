@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cab Booking Payment</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+<button id="bookNowBtn">Book Cab</button>
+
+<!-- Modal for user input -->
+<div id="userFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Enter Details</h2>
+    <form id="bookingForm">
+      <input type="text" id="name" placeholder="Name" required><br>
+      <input type="email" id="email" placeholder="Email" required><br>
+      <input type="tel" id="phone" placeholder="Phone" required><br>
+      <input type="number" id="seats" placeholder="Number of Seats" min="1" max="6" required><br>
+      <div id="amountBox">Total: ₹<span id="totalAmount">0</span></div>
+      <button type="submit">Proceed to Pay</button>
+    </form>
+  </div>
+</div>
+
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking with Google Authentication</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <style>
+    #g_id_onload {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="mb-4">City To City Cab Services</h2>
+    <!-- Book Now button triggers Google Sign-In -->
+    <button id="bookNowBtn" class="btn btn-primary">Book Now</button>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="popupBookingForm">
+          <div class="modal-header">
+            <h5 class="modal-title" id="bookingModalLabel">Enter Booking Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="userName" class="form-label">Name</label>
+              <input type="text" class="form-control" id="userName" required />
+            </div>
+            <div class="mb-3">
+              <label for="userEmail" class="form-label">Email</label>
+              <input type="email" class="form-control" id="userEmail" required />
+            </div>
+            <div class="mb-3">
+              <label for="userMobile" class="form-label">Mobile Number</label>
+              <input type="tel" class="form-control" id="userMobile" required pattern="[0-9]{10}" />
+            </div>
+            <div class="mb-3">
+              <label for="seats" class="form-label">Number of Seats</label>
+              <select class="form-select" id="seats" required>
+                <option value="" selected disabled>Select seats</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="totalAmount" class="form-label">Total Amount</label>
+              <input type="text" class="form-control" id="totalAmount" readonly />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit Booking</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Sign-In container (hidden) -->
+  <div id="g_id_onload"
+       data-client_id="YOUR_GOOGLE_CLIENT_ID"
+       data-auto_prompt="false"
+       data-cancel_on_tap_outside="false"
+       data-callback="handleCredentialResponse">
+  </div>
+
+  <!-- Bootstrap JS bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const seatPrice = 600;
+
+    // Initialize Bootstrap modal
+    const bookingModalEl = document.getElementById('bookingModal');
+    const bookingModal = new bootstrap.Modal(bookingModalEl);
+
+    // Google OAuth client ID - Replace with your real client ID
+    const googleClientId = "YOUR_GOOGLE_CLIENT_ID";
+
+    // Button: Book Now clicked
+    document.getElementById('bookNowBtn').addEventListener('click', () => {
+      // Show Google One Tap prompt manually using google.accounts.id.prompt()
+      google.accounts.id.initialize({
+        client_id: googleClientId,
+        callback: handleCredentialResponse
+      });
+
+      google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          // If user dismisses or no prompt, fallback to signIn button modal
+          showGoogleSignInModal();
+        }
+      });
+    });
+
+    // If automatic prompt fails, we show a manual sign-in button modal
+    function showGoogleSignInModal() {
+      // You can build a manual popup with Google Sign-In button here
+      alert("Please sign in with Google to continue booking.");
+      // Or you can also render google.accounts.id.renderButton into a modal for user sign-in
+    }
+
+    // Handle Google tokens after successful sign in
+    function handleCredentialResponse(response) {
+      // Decode JWT token payload (simplified)
+      const base64Url = response.credential.split('.')[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      const userObject = JSON.parse(jsonPayload);
+      // console.log(userObject); // has email, name, picture etc.
+
+      // Prefill booking modal fields
+      document.getElementById('userName').value = userObject.name || "";
+      document.getElementById('userEmail').value = userObject.email || "";
+
+      // Show booking modal
+      bookingModal.show();
+    }
+
+    // Calculate and update total amount when seats are changed
+    document.getElementById('seats').addEventListener('change', function () {
+      const seats = parseInt(this.value);
+      if (!isNaN(seats)) {
+        const totalAmount = seats * seatPrice;
+        document.getElementById('totalAmount').value = `₹${totalAmount}`;
+      } else {
+        document.getElementById('totalAmount').value = '';
+      }
+    });
+
+    // Handle booking form submission
+    document.getElementById('popupBookingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Booking submitted. Implement payment integration next.');
+    });
+  </script>
+</body>
+</html>
+
